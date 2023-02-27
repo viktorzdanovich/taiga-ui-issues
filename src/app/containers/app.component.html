@@ -1,0 +1,22 @@
+<tui-root>
+  <router-outlet></router-outlet>
+
+  <ng-container ngProjectAs="tuiOverPopups">
+    <!-- контент над попапами кита -->
+  </ng-container>
+  <ng-container ngProjectAs="tuiOverNotifications">
+    <!-- контент над нотификациями кита -->
+  </ng-container>
+  <ng-container ngProjectAs="tuiOverPortals">
+    <!-- Content over dropdowns -->
+    <tui-loader
+      *ngIf="loading"
+      [overlay]="true"
+      [showLoader]="true"
+      id="root-loader"
+    ></tui-loader>
+  </ng-container>
+  <ng-container ngProjectAs="tuiOverHints">
+    <!-- Content over hints -->
+  </ng-container>
+</tui-root>

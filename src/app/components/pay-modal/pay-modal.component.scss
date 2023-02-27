@@ -1,0 +1,123 @@
+:host {
+  ::ng-deep {
+    tui-input-card-grouped {
+      width: 100% !important;
+
+      &.without-date {
+        .t-wrapper_expire {
+          display: none;
+        }
+
+        tui-svg[src="tuiIconCloseLarge"] {
+          display: none;
+        }
+      }
+
+      .t-value_collapsed {
+        letter-spacing: .1px;
+      }
+    }
+
+    tui-primitive-checkbox tui-wrapper {
+      color: #313132 !important;
+      background: #F6F7F8 !important;
+    }
+  }
+}
+
+.modal-container {
+  width: 100%;
+  max-width: 480px;
+}
+
+.title {
+  margin: 0 0 16px 0;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: 0.18px;
+}
+
+.form-block {
+  margin-bottom: 16px;
+
+  .saved-card-preset {
+    &__item {
+      height: 56px;
+      background: #FAFBFB;
+      border-radius: 16px;
+      border: 2px solid #EAEAEA;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      &__placeholder {
+        color: #717172;
+        letter-spacing: 0.24px;
+        font-size: 12px;
+        line-height: 18px;
+      }
+
+      &__info {
+        display: flex;
+        align-items: center;
+
+        &__icon {
+          width: 32px;
+          height: 22px;
+          background-position: center;
+          background-repeat: no-repeat;
+          margin-right: 8px;
+
+          &.MasterCard {
+            background-image: url('/assets/images/mastercard-img.svg');
+          }
+
+          &.Visa {
+            background-image: url('/assets/images/visa-img.svg');
+          }
+
+          &.Mir, &.MIR {
+            background-image: url('/assets/images/mir-img.svg');
+          }
+        }
+
+        &__number {
+          letter-spacing: 0.2px;
+          line-height: 22px;
+          color: #313132;
+        }
+      }
+    }
+  }
+
+  &.is--links {
+    display: flex;
+    align-items: center;
+
+    ::ng-deep {
+      a {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+
+        &:first-child {
+          color: #6496DC;
+        }
+
+        &:last-child {
+          color: #B0B0B0;
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 599px) {
+  .modal-container {
+    width: 100%;
+  }
+}

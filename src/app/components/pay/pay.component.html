@@ -1,0 +1,14 @@
+<div class="container">
+  <tui-input-number
+    [formControl]="amountControl"
+    [postfix]="'₽'"
+    [tuiTextfieldCleaner]="true"
+    
+    [tuiTextfieldLabelOutside]="true"
+    tuiTextfieldSize="l">
+  <input tuiTextfield [attr.inputmode]="'numeric'"/> </tui-input-number>
+
+  <tui-loader [overlay]="true" [showLoader]="loading">
+    <button (click)="payByCard()" class="pay-button" tuiButton>Pay</button>
+  </tui-loader>
+</div>

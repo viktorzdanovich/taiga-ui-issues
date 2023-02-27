@@ -1,0 +1,72 @@
+<ng-container *ngIf="{paymentMode: paymentMode$ | async} as sync">
+  <div class="modal-container">
+    <h1 class="title">Pay by card</h1>
+
+    <form [formGroup]="form">
+      <ng-container *ngFor="let card of savedCardsWithoutSelected">
+        <div class="form-block">
+          <div (click)="setCard(card, true)" class="saved-card-preset">
+            <div class="saved-card-preset__item">
+              <div class="saved-card-preset__item__inner">
+                <div class="saved-card-preset__item__placeholder">
+                  Card number
+                </div>
+                <div class="saved-card-preset__item__info">
+                  <div
+                    [ngClass]="[card.cardType]"
+                    class="saved-card-preset__item__info__icon"
+                  ></div>
+                  <div class="saved-card-preset__item__info__number">
+                    {{ card.firstSix }}****{{ card.lastFour }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="form-block">
+        <tui-loader [overlay]="true" [showLoader]="(pending$ | async) === true">
+          <tui-input-card-grouped
+            #cardGroupedInput
+            [autocompleteEnabled]="true"
+            [cardValidator]="cardValidator"
+            [class.without-date]="sync.paymentMode === PAYMENT_MODE.BY_SAVED_CARD"
+            [tuiTextfieldCleaner]="sync.paymentMode === PAYMENT_MODE.BY_NEW_CARD"
+            formControlName="card"
+            tuiAutoFocus
+          ></tui-input-card-grouped>
+        </tui-loader>
+      </div>
+
+      <ng-container *ngIf="sync.paymentMode === PAYMENT_MODE.BY_NEW_CARD">
+        <div class="form-block">
+          <tui-checkbox-labeled formControlName="saveCard" size="l">
+            Remember card
+          </tui-checkbox-labeled>
+        </div>
+      </ng-container>
+
+      <div
+        *ngIf="sync.paymentMode === PAYMENT_MODE.BY_SAVED_CARD"
+        class="form-block is--links"
+      >
+        <a (click)="setCard(null, true)" icon="tuiIconPlus" iconAlign="left" tuiLink>
+          New card
+        </a>
+        <a (click)="deleteCards()" tuiLink>Delete cards</a>
+      </div>
+    </form>
+    <button
+      (click)="pay()"
+      [showLoader]="payProcessing"
+      appearance="primary"
+      size="l"
+      tuiButton
+      type="submit"
+    >
+      Pay {{ amount | tuiFormatNumber }}&nbsp;₽
+    </button>
+  </div>
+</ng-container>
