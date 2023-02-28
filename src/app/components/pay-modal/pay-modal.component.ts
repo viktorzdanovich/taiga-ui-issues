@@ -16,7 +16,7 @@ import {
   tuiDefaultCardValidator,
   TuiInputCardGroupedComponent
 } from '@taiga-ui/addon-commerce';
-import { BehaviorSubject, filter, race, Subject, take, takeUntil, timer } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { tuiInputCardGroupedCVCValidator } from '../../validators';
 import { TuiDialogContext } from '@taiga-ui/core';
 import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
@@ -114,21 +114,22 @@ export class PayModalComponent implements OnInit, OnDestroy, AfterViewInit {
       if (fromTemplate) {
         this.cardGroupedInput?.focusCVC();
       } else {
-        // TODO: figure out why focusing cvc doesn't work without this workaround
-        // this.cardGroupedInput?.focusCVC();
+        // TODO: figure out why focusing cvc doesn't work
+        this.cardGroupedInput?.focusCVC();
 
-        const cardGroupedInputFocusedSubject = new Subject<void>();
-        timer(0, 30)
-          .pipe(
-            take(100),
-            filter(() => this.cardGroupedInput?.focused === true),
-            takeUntil(race(cardGroupedInputFocusedSubject, this.destroyed$))
-          )
-          .subscribe(() => {
-            this.cardGroupedInput?.focusCVC();
-            cardGroupedInputFocusedSubject.next();
-            cardGroupedInputFocusedSubject.complete();
-          });
+        // TODO: This workaround works for some cases, but not in this build
+        // const cardGroupedInputFocusedSubject = new Subject<void>();
+        // timer(0, 30)
+        //   .pipe(
+        //     take(100),
+        //     filter(() => this.cardGroupedInput?.focused === true),
+        //     takeUntil(race(cardGroupedInputFocusedSubject, this.destroyed$))
+        //   )
+        //   .subscribe(() => {
+        //     this.cardGroupedInput?.focusCVC();
+        //     cardGroupedInputFocusedSubject.next();
+        //     cardGroupedInputFocusedSubject.complete();
+        //   });
       }
     } else {
       this.form.patchValue({
