@@ -24,8 +24,8 @@ export class PayService {
       map((cards: SavedCard[]) => ({
         selected: cards[0],
         cards: cards
-      }))
-      // map(() => null),
+      })),
+      map(() => null)
     );
   }
 

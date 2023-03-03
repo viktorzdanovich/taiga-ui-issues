@@ -38,15 +38,15 @@ export class PayComponent implements OnDestroy {
     this.payModalOpened = true;
     this.loading = true;
 
-    this.payService
-      .preparePayment(this.amountControl.value)
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((amount) => {
-        this.openCardDialog(amount);
+    // this.payService
+    //   .preparePayment(this.amountControl.value)
+    //   .pipe(takeUntil(this.destroyed$))
+    //   .subscribe((amount) => {
+    this.openCardDialog(this.amountControl.value);
 
-        this.loading = false;
-        this.cdr.detectChanges();
-      });
+    this.loading = false;
+    this.cdr.detectChanges();
+    // });
   }
 
   openCardDialog(amount: number): void {
